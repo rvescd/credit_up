@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신용점수 AI 진단 - 왜 내 점수가 떨어졌는지 알아보세요</title>
+    <meta name="description" content="단 3분 설문으로 AI가 당신의 신용점수 하락 원인을 정리해드립니다. 맞춤형 개선 방안과 함께 제공됩니다.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-item .feature-icon {
+            font-size: 2rem;
+        }
+
+        .feature-item span:last-child {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .hero-visual {
+            margin-top: 40px;
+        }
+
+        .credit-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            max-width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-chip {
+            font-size: 2rem;
+        }
+
+        .card-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .card-body {
+            text-align: left;
+        }
+
+        .score-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .card-body p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .problem-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .problem h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #1f2937;
+        }
+
+        .story-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #dc2626;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc2626;
+            padding-left: 20px;
+        }
+
+        .stats {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .stats strong {
+            color: #92400e;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-visual {
+            margin-top: 20px;
+        }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto;
+        }
+
+        .progress-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .progress-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .ai-report {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .report-header {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .report-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .report-item {
+            font-size: 0.9rem;
+            color: #6b7280;
+            padding: 5px 0;
+        }
+
+        .challenge-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .challenge-item {
+            font-size: 0.9rem;
+            color: #059669;
+            background: #d1fae5;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        .savings-calculator {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .savings-header {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .savings-amount {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .savings-detail {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            border: 1px solid #f3f4f6;
+        }
+
+        .testimonial-avatar {
+            font-size: 3rem;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .testimonial-content {
+            flex: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #374151;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .author-age {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .success-stats {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stats-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .stats-icon {
+            font-size: 2.5rem;
+        }
+
+        .stats-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #059669;
+            line-height: 1;
+        }
+
+        .stats-description {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .stats-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .stats-text p {
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .email-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: #667eea;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #5a67d8;
+        }
+
+        .form-note {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-icon {
+                font-size: 3rem;
+            }
+
+            .hero-features {
+                gap: 20px;
+            }
+
+            .feature-item .feature-icon {
+                font-size: 1.5rem;
+            }
+
+            .credit-card {
+                max-width: 250px;
+                padding: 20px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero, .problem, .features, .testimonials, .cta {
+                padding: 60px 0;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+
+            .progress-circle {
+                width: 60px;
+                height: 60px;
+            }
+
+            .progress-number {
+                font-size: 1.2rem;
+            }
+
+            .challenge-item {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .testimonial-avatar {
+                font-size: 2.5rem;
+                margin-top: 0;
+            }
+
+            .testimonial-author {
+                justify-content: center;
+            }
+
+            .success-stats {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .stats-card {
+                justify-content: center;
+            }
+
+            .stats-text {
+                min-width: auto;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Success message */
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section (A - Attention) -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-icon">🔍</div>
+            <h1>왜 내 신용점수가 떨어졌는지 아무도 알려주지 않았다면?</h1>
+            <p>단 3분 설문으로, 당신의 신용점수 하락 원인을 AI가 정리해드립니다.</p>
+            
+            <div class="hero-features">
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <span>3분 설문</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🤖</span>
+                    <span>AI 분석</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <span>맞춤 리포트</span>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="credit-card">
+                    <div class="card-header">
+                        <span class="card-chip">💳</span>
+                        <span class="card-score">750</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 75%"></div>
+                        </div>
+                        <p>신용점수 진단</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section (I - Interest) -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-content">
+                <h2>📉 "금리가 올랐다는 알림만 받고, 왜 점수가 떨어졌는지는 아무도 설명 안 해줬어요."</h2>
+                
+                <div class="story-card">
+                    <div class="quote">
+                        "금리가 올랐다는 알림만 받고, 왜 점수가 떨어졌는지는 아무도 설명 안 해줬어요."
+                    </div>
+                    <p>봉미선(33세, 자영업)은 대출 조건이 갑자기 나빠졌다는 통보를 받고 처음으로 신용점수를 확인했습니다. 하지만 점수 그래프 외엔 <strong>원인도 없고, 해결책도 없었습니다.</strong></p>
+                </div>
+
+                <div class="stats">
+                    <p>📊 실제로 신용점수가 하락해도</p>
+                    <p><strong>🔍 '왜 그런지 정확히 아는 사람은 12%에 불과합니다.'</strong> *(사내 예비 조사 결과)*</p>
+                </div>
+
+                <p>대부분은 <strong>무심코 놓친 자동이체</strong>, <strong>계좌 수 증가</strong>, <strong>신용카드 한도 관리</strong> 등의 사소한 요소를 모르고 지나칩니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section (D - Desire) -->
+    <section class="features">
+        <div class="container">
+            <h2>🔎 "AI가 당신의 금융 습관을 진단하고, 바꿔드립니다"</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>신용유형 진단 설문</h3>
+                    <p>단 8문항으로 나의 신용 행동 패턴 분석</p>
+                    <div class="feature-visual">
+                        <div class="progress-circle">
+                            <span class="progress-number">8</span>
+                            <span class="progress-label">문항</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h3>맞춤형 AI 리포트 제공</h3>
+                    <p>생성형 AI가 내 점수 하락 요인과 개선 포인트를 요약</p>
+                    <div class="feature-visual">
+                        <div class="ai-report">
+                            <div class="report-header">🤖 AI 분석 리포트</div>
+                            <div class="report-content">
+                                <div class="report-item">📉 하락 원인</div>
+                                <div class="report-item">📈 개선 방안</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏁</div>
+                    <h3>실천형 챌린지 추천</h3>
+                    <p>자동이체 등록, 소액결제 사용 조절 등 행동 미션과 리마인더 제공</p>
+                    <div class="feature-visual">
+                        <div class="challenge-list">
+                            <div class="challenge-item">✅ 자동이체 등록</div>
+                            <div class="challenge-item">✅ 소액결제 조절</div>
+                            <div class="challenge-item">✅ 카드 한도 관리</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>금리 절감 시뮬레이터 (프리뷰)</h3>
+                    <p>점수 개선 시 예상 금리 절감액 계산</p>
+                    <div class="feature-visual">
+                        <div class="savings-calculator">
+                            <div class="savings-header">💸 절감 예상</div>
+                            <div class="savings-amount">월 50만원</div>
+                            <div class="savings-detail">→ 월 45만원</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section (D - Desire) -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>사용자 후기</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">👨‍💼</div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            "점수가 왜 떨어졌는지 몰라서 불안했는데, 리포트 보고 '이것 때문이었구나' 싶었어요."
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">김민수</span>
+                            <span class="author-age">29세</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">👩‍💼</div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            "AI가 요약해준 리포트를 보고, 자동이체 하나로 10점 올랐습니다. 이제 월 0.5% 낮은 금리로 대환도 고려 중이에요."
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">이지영</span>
+                            <span class="author-age">35세</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-stats">
+                <div class="stats-card">
+                    <div class="stats-icon">📊</div>
+                    <div class="stats-content">
+                        <div class="stats-number">72%</div>
+                        <div class="stats-description">전체 사용자 중</div>
+                    </div>
+                </div>
+                <div class="stats-text">
+                    <p>'내가 점수를 올릴 수 있다는 가능성'을 확인했다고 응답했습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (A - Action) -->
+    <section class="cta">
+        <div class="container">
+            <h2>지금 당신의 신용유형을 확인하고<br>점수 하락의 원인을 찾아보세요.</h2>
+            <p>➤ 유형 진단하고 AI 리포트 받아보기</p>
+            
+            <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="emailForm">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-input" placeholder="이메일 주소를 입력해주세요" required>
+                </div>
+                <button type="submit" class="submit-btn">무료 AI 진단 받기</button>
+                <div class="form-note">
+                    *간단한 설문 참여 후 AI가 자동 생성한 요약 리포트가 메일로 발송됩니다.
+                </div>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                ✅ 신청이 완료되었습니다! 이메일을 확인해주세요.
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                ❌ 오류가 발생했습니다. 다시 시도해주세요.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitBtn = form.querySelector('.submit-btn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Show loading state
+            submitBtn.textContent = '처리 중...';
+            form.classList.add('loading');
+            
+            // Submit form
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                errorMessage.style.display = 'block';
+            })
+            .finally(() => {
+                submitBtn.textContent = '무료 AI 진단 받기';
+                form.classList.remove('loading');
+            });
+        });
+    </script>
+</body>
+</html> 
